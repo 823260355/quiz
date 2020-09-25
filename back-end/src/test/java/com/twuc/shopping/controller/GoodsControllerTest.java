@@ -36,9 +36,9 @@ class GoodsControllerTest {
     @Test
     void should_add_goods_when_name_no_exit() throws Exception {
 
-        Goods goods = new Goods("可乐",3.00,"可口可乐公司","D://kele");
+        Goods goods = new Goods("可乐",3.0,"可口可乐公司","D://kele");
         String json = objectMapper.writeValueAsString(goods);
-        mockMvc.perform(post("/good/add").content(json).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/goods/add").content(json).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         List<GoodsEntity> all = goodsRepository.findAll();
         assertEquals(1,all.size());

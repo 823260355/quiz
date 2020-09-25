@@ -20,5 +20,5 @@ public class GoodsEntity {
     private String name;
     private double price;
     private String unit;
-    private String imaUrl;
+    private String imgUrl;
 }
