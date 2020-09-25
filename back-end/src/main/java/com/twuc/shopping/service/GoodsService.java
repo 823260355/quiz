@@ -6,6 +6,7 @@ import com.twuc.shopping.repository.GoodsRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class GoodsService {
@@ -22,5 +23,9 @@ public class GoodsService {
     public void addGoods(Goods goods){
         GoodsEntity goodsEntity = goodsToGoodsEntity(goods);
         goodsRepository.save(goodsEntity);
+    }
+    public int findAllByName(String name){
+        List<GoodsEntity> allGoodOfNameSame = goodsRepository.findAllByName(name);
+        return allGoodOfNameSame.size();
     }
 }

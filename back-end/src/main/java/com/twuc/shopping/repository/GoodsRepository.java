@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface GoodsRepository extends CrudRepository<GoodsEntity, Integer> {
     List<GoodsEntity> findAll();
+    List<GoodsEntity> findAllByName(String name);
 }
