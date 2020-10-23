@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GoodsService {
@@ -20,6 +21,13 @@ public class GoodsService {
                 .imgUrl(goods.getImgUrl())
                 .build();
     }
+
+    public List<Goods> goodsEntityToGoods(List<GoodsEntity> goodsEntity) {
+        return goodsRepository.findAll().stream()
+                .map(Goods::from)
+                .collect(Collectors.toList());
+    }
+
     public void addGoods(Goods goods){
         GoodsEntity goodsEntity = goodsToGoodsEntity(goods);
         goodsRepository.save(goodsEntity);
@@ -29,5 +37,8 @@ public class GoodsService {
         return allGoodOfNameSame.size();
     }
 
-
+    public List<Goods> getGoods() {
+        List<GoodsEntity> goodsEntities = goodsRepository.findAll();
+        return goodsEntityToGoods(goodsEntities);
+    }
 }
