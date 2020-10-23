@@ -15,6 +15,17 @@ class AddGoods extends Component {
     });
   }
 
+  handleSubmit(event){
+    event.preventDefault();  
+      
+    const URL = 'http://localhost:8080///goods';
+    var client = new XMLHttpRequest();
+    client.open("POST", URL, false); 
+    client.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+    client.send(this.statea);
+      
+  }
+
   formSubmit = (e) => {
     console.log(this.state);
   }
@@ -64,7 +75,7 @@ class AddGoods extends Component {
                    onChange={(e) => this.stateChange ("img",e)}
                    className="form-control"
                    placeholder="URL"
-                   id="uimg"
+                   id="img"
                  />
               </div>
               <div className="form-group" >
