@@ -17,6 +17,7 @@ import java.util.List;
 public class GoodsController {
     @Autowired
     GoodsService goodsService;
+
     @PostMapping("/goods")
     public ResponseEntity createGood(@RequestBody Goods goods) {
         int num = goodsService.findAllByName(goods.getName());

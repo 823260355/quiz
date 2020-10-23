@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "goods")
@@ -21,4 +22,6 @@ public class GoodsEntity {
     private double price;
     private String unit;
     private String imgUrl;
+    @OneToMany(mappedBy = "goods", orphanRemoval = true)
+    List<OrderEntity> orders;
 }
