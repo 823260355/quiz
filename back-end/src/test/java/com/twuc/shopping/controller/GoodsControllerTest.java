@@ -31,7 +31,6 @@ class GoodsControllerTest {
     @BeforeEach
     void setUp(){
         objectMapper = new ObjectMapper();
-        goodsRepository.deleteAll();
     }
 
     @Test
@@ -61,6 +60,20 @@ class GoodsControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    void should_add_goods_is_fail_when_input_already_exists() throws Exception {
+        GoodsEntity goodsEntity = GoodsEntity.builder()
+                .name("可乐")
+                .price(3.5)
+                .unit("可口可乐公司")
+                .imgUrl("D://kele")
+                .build();
+        goodsRepository.save(goodsEntity);
+        Goods goods = new Goods("可乐",3.0,"可口可乐公司","D://kele");
+        String json = objectMapper.writeValueAsString(goods);
+        mockMvc.perform(post("/goods").content(json).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
 
 
 
