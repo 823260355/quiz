@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class GoodsController {
     @Autowired
     GoodsService goodsService;
-    @PostMapping("/goods/add")
-    public ResponseEntity register(@RequestBody Goods goods) {
+    @PostMapping("/goods")
+    public ResponseEntity createGood(@RequestBody Goods goods) {
         int num = goodsService.findAllByName(goods.getName());
         if (num != 1) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

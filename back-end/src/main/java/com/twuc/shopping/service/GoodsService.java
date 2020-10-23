@@ -28,4 +28,6 @@ public class GoodsService {
         List<GoodsEntity> allGoodOfNameSame = goodsRepository.findAllByName(name);
         return allGoodOfNameSame.size();
     }
+
+
 }

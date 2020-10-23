@@ -31,14 +31,15 @@ class GoodsControllerTest {
     @BeforeEach
     void setUp(){
         objectMapper = new ObjectMapper();
+        goodsRepository.deleteAll();
     }
 
     @Test
-    void should_add_goods_when_name_no_exit() throws Exception {
+    void should_add_goods_is_succeed() throws Exception {
 
-        Goods goods = new Goods("可乐",3.0,"可口可乐公司","D://kele");
+        Goods goods = new Goods("可乐", 3.0, "可口可乐公司", "D://kele");
         String json = objectMapper.writeValueAsString(goods);
-        mockMvc.perform(post("/goods/add").content(json).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/goods").content(json).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         List<GoodsEntity> all = goodsRepository.findAll();
         assertEquals(1,all.size());
@@ -46,9 +47,9 @@ class GoodsControllerTest {
     }
 
     @Test
-    void should_add_goods_when_name_exit() throws Exception {
+    void should_add_goods_is_fail_when_input_is_null() throws Exception {
         GoodsEntity goodsEntity = GoodsEntity.builder()
-                .name("可乐")
+                .name(null)
                 .price(3.5)
                 .unit("可口可乐公司")
                 .imgUrl("D://kele")
@@ -56,7 +57,11 @@ class GoodsControllerTest {
          goodsRepository.save(goodsEntity);
         Goods goods = new Goods("可乐",3.0,"可口可乐公司","D://kele");
         String json = objectMapper.writeValueAsString(goods);
-        mockMvc.perform(post("/goods/add").content(json).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/goods").content(json).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
+
+
+
+
 }
